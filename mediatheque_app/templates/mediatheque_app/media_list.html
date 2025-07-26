@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>médias</title>
+</head>
+<body>
+
+<h2>Liste des médias</h2>
+<ul>
+  {% for media in medias %}
+    <li>{{ media.titre }} - {{ media.type }}
+        {% if not media.disponible %} (Indisponible){% endif %}
+    </li>
+  {% endfor %}
+</ul>
+
+</body>
+</html>

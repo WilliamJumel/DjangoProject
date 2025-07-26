@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>membres</title>
+</head>
+<body>
+
+<h2>Liste des membres</h2>
+<ul>
+  {% for membre in membres %}
+    <li>{{ membre.nom }}{% if membre.bloque %} (Bloqué){% endif %}</li>
+  {% endfor %}
+</ul>
+<a href="{% url 'membre_create' %}">Ajouter un membre</a>
+
+
+</body>
+</html>

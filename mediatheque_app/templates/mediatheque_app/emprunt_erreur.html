@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>emprunt</title>
+</head>
+<body>
+
+<h2>Erreur d’emprunt</h2>
+<p>Le membre {{ membre.nom }} ne peut pas emprunter :</p>
+<ul>
+  <li>Plus de 3 emprunts</li>
+  <li>Ou un emprunt en retard</li>
+</ul>
+<a href="{% url 'emprunt_create' %}">Retour</a>
+
+</body>
+</html>
