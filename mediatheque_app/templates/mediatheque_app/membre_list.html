@@ -1,19 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <title>membres</title>
+    <meta charset="UTF-8" />
+    <title>Liste des Membres</title>
 </head>
 <body>
-
-<h2>Liste des membres</h2>
-<ul>
-  {% for membre in membres %}
-    <li>{{ membre.nom }}{% if membre.bloque %} (Bloqué){% endif %}</li>
-  {% endfor %}
-</ul>
-<a href="{% url 'membre_create' %}">Ajouter un membre</a>
-
-
+    <h1>Liste des Membres</h1>
+    <a href="{% url 'membre_create' %}">Ajouter un Membre</a>
+    <ul>
+        {% for membre in membres %}
+        <li>{{ membre.prenom }} {{ membre.nom }} - Email : {{ membre.email }}</li>
+        {% empty %}
+        <li>Aucun membre trouvé.</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'home' %}">Retour à l'accueil</a>
 </body>
 </html>

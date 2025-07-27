@@ -5,17 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f07cf847-165b-4e30-a1fe-d756798809e9" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/mediatheque_app/templates/mediatheque_app/emprunt_create.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mediatheque_app/templates/mediatheque_app/emprunt_erreur.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mediatheque_app/templates/mediatheque_app/home.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mediatheque_app/templates/mediatheque_app/media_list.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mediatheque_app/templates/mediatheque_app/membre_create.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mediatheque_app/templates/mediatheque_app/membre_list.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mediatheque_app/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/DjangoProject.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/DjangoProject.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mediatheque_app/forms.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mediatheque_app/templates/mediatheque_app/client_home.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mediatheque_app/templates/mediatheque_app/emprunt_list.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mediatheque_app/templates/mediatheque_app/media_create.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DjangoProject/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/DjangoProject/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DjangoProject/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/DjangoProject/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mediatheque_app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/mediatheque_app/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mediatheque_app/templates/mediatheque_app/emprunt_create.html" beforeDir="false" afterPath="$PROJECT_DIR$/mediatheque_app/templates/mediatheque_app/emprunt_create.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mediatheque_app/templates/mediatheque_app/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/mediatheque_app/templates/mediatheque_app/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mediatheque_app/templates/mediatheque_app/media_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/mediatheque_app/templates/mediatheque_app/media_list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mediatheque_app/templates/mediatheque_app/membre_create.html" beforeDir="false" afterPath="$PROJECT_DIR$/mediatheque_app/templates/mediatheque_app/membre_create.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mediatheque_app/templates/mediatheque_app/membre_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/mediatheque_app/templates/mediatheque_app/membre_list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mediatheque_app/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/mediatheque_app/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mediatheque_app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/mediatheque_app/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,18 +36,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "WilliamJumel"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;WilliamJumel&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/WilliamJumel/DjangoProject.git",
-    "accountId": "4ae801fb-4a56-48cb-b2b4-4396c1fccc8c"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/WilliamJumel/DjangoProject.git&quot;,
+    &quot;accountId&quot;: &quot;4ae801fb-4a56-48cb-b2b4-4396c1fccc8c&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4
 }</component>
@@ -56,6 +59,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "DefaultHtmlFileTemplate": "HTML File",
+    "Django Server.DjangoProject.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -78,6 +82,7 @@
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
+        <env name="DJANGO_SETTINGS_MODULE" value="DjangoProject.settings" />
       </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="" />
@@ -112,7 +117,8 @@
       <option name="presentableId" value="Default" />
       <updated>1753020209976</updated>
       <workItem from="1753020210955" duration="540000" />
-      <workItem from="1753536367832" duration="4661000" />
+      <workItem from="1753536367832" duration="5029000" />
+      <workItem from="1753622204092" duration="4625000" />
     </task>
     <servers />
   </component>

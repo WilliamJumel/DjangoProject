@@ -1,19 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <title>médias</title>
+    <meta charset="UTF-8" />
+    <title>Liste des Médias</title>
 </head>
 <body>
-
-<h2>Liste des médias</h2>
-<ul>
-  {% for media in medias %}
-    <li>{{ media.titre }} - {{ media.type }}
-        {% if not media.disponible %} (Indisponible){% endif %}
-    </li>
-  {% endfor %}
-</ul>
-
+    <h1>Liste des Médias</h1>
+    <a href="{% url 'media_create' %}">Ajouter un Média</a>
+    <ul>
+        {% for media in medias %}
+        <li>{{ media.titre }} ({{ media.type_media }}) - {% if media.disponible %}Disponible{% else %}Indisponible{% endif %}</li>
+        {% empty %}
+        <li>Aucun média trouvé.</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'home' %}">Retour à l'accueil</a>
 </body>
 </html>

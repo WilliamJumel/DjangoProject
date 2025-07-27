@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Espace Membre</title>
+</head>
+<body>
+    <h1>Bienvenue dans l’espace membre</h1>
+
+    <h2>1. Médias disponibles à l'emprunt</h2>
+    <ul>
+        {% for media in medias_disponibles %}
+            <li>{{ media.titre }} ({{ media.type }})</li>
+        {% empty %}
+            <li>Aucun média disponible pour le moment.</li>
+        {% endfor %}
+    </ul>
+
+    <hr>
+
+    <h2>2. Voir vos emprunts</h2>
+    <form method="get">
+        <label for="membre_id">Votre ID membre :</label>
+        <input type="number" name="membre_id" id="membre_id" required>
+        <button type="submit">Voir mes emprunts</button>
+    </form>
+
+    {% if emprunts %}
+        <h3>Vos emprunts</h3>
+        <ul>
+            {% for emprunt in emprunts %}
+                <li>
+                    {{ emprunt.media.titre }} — emprunté le {{ emprunt.date_emprunt }} —
+                    {% if emprunt.retour %} Retourné le {{ emprunt.retour }}
+                    {% else %} Non retourné {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% elif membre_recherche %}
+        <p>Aucun emprunt trouvé pour ce membre.</p>
+    {% endif %}
+
+    <hr>
+    <a href="{% url 'home' %}">Retour à l'accueil</a>
+</body>
+</html>

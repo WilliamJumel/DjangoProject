@@ -1,17 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>médiathèque</title>
+    <title>Accueil</title>
 </head>
 <body>
+    <h1>Bienvenue dans la médiathèque</h1>
 
-<h1>Bienvenue à la médiathèque</h1>
-<ul>
-  <li><a href="{% url 'membre_list' %}">Gérer les membres</a></li>
-  <li><a href="{% url 'media_list' %}">Voir les médias</a></li>
-  <li><a href="{% url 'emprunt_create' %}">Créer un emprunt</a></li>
-</ul>
+    <a href="{% url 'media_list' %}"><button>Voir les médias</button></a>
+    <a href="{% url 'membre_list' %}"><button>Voir les membres</button></a>
+    <a href="{% url 'emprunt_list' %}"><button>Voir les emprunts</button></a>
 
+    <!-- 👇 Nouveau bouton pour l'interface client -->
+    <a href="{% url 'client_home' %}">
+        <button>Accéder à l'espace client</button>
+    </a>
 </body>
 </html>

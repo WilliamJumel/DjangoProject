@@ -1,61 +1,85 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from .models import Membre, Media, Emprunt
+from django.shortcuts import render, redirect
+from .models import Media, Membre, Emprunt
+from .forms import MediaForm, MembreForm, EmpruntForm
+from datetime import timedelta
 from django.utils import timezone
 
-def home(request):
-    return render(request, 'mediatheque_app/home.html')
+def accueil_bibliothecaire(request):
+    return render(request, 'bibliothecaire/accueil.html')
 
-def membre_list(request):
-    membres = Membre.objects.all()
-    return render(request, 'mediatheque_app/membre_list.html', {'membres': membres})
-
-def membre_create(request):
+def ajouter_media(request):
     if request.method == 'POST':
-        nom = request.POST.get('nom')
-        Membre.objects.create(nom=nom)
-        return redirect('membre_list')
-    return render(request, 'mediatheque_app/membre_create.html')
+        form = MediaForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('liste_medias')
+    else:
+        form = MediaForm()
+    return render(request, 'bibliothecaire/ajouter_media.html', {'form': form})
 
-def media_list(request):
+def ajouter_membre(request):
+    if request.method == 'POST':
+        form = MembreForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('liste_membres')
+    else:
+        form = MembreForm()
+    return render(request, 'bibliothecaire/ajouter_membre.html', {'form': form})
+
+def liste_medias(request):
     medias = Media.objects.all()
-    return render(request, 'mediatheque_app/media_list.html', {'medias': medias})
+    return render(request, 'bibliothecaire/liste_medias.html', {'medias': medias})
 
-def emprunt_create(request):
+def liste_membres(request):
     membres = Membre.objects.all()
-    medias = Media.objects.filter(disponible=True)
+    return render(request, 'bibliothecaire/liste_membres.html', {'membres': membres})
 
+def creer_emprunt(request):
     if request.method == 'POST':
-        membre_id = request.POST.get('membre')
-        media_id = request.POST.get('media')
-        membre = Membre.objects.get(id=membre_id)
-        media = Media.objects.get(id=media_id)
+        form = EmpruntForm(request.POST)
+        if form.is_valid():
+            emprunt = form.save(commit=False)
+            media = emprunt.media
+            membre = emprunt.membre
 
-        # Contraintes métier
-        emprunts = Emprunt.objects.filter(membre=membre, rendu=False)
-        en_retard = any((timezone.now() - e.date_emprunt).days > 7 for e in emprunts)
+            # Vérifier si le média est empruntable
+            if media.type_media == 'jeu':
+                form.add_error(None, "Les jeux de plateau ne peuvent pas être empruntés.")
+            elif not media.disponible:
+                form.add_error(None, "Ce média est déjà emprunté.")
+            elif membre.bloque or membre.emprunt_set.filter(date_retour__isnull=True).count() >= 3:
+                form.add_error(None, "Ce membre ne peut pas emprunter de média.")
+            else:
+                media.disponible = False
+                media.save()
+                emprunt.date_emprunt = timezone.now()
+                emprunt.save()
+                return redirect('liste_emprunts')
+    else:
+        form = EmpruntForm()
+    return render(request, 'bibliothecaire/creer_emprunt.html', {'form': form})
 
-        if emprunts.count() >= 3 or en_retard:
-            return render(request, 'mediatheque_app/emprunt_erreur.html', {'membre': membre})
+def liste_emprunts(request):
+    emprunts = Emprunt.objects.all()
+    return render(request, 'bibliothecaire/liste_emprunts.html', {'emprunts': emprunts})
 
-        Emprunt.objects.create(membre=membre, media=media)
-        media.disponible = False
-        media.emprunteur = membre
-        media.date_emprunt = timezone.now()
-        media.save()
-        return redirect('media_list')
+def client_home(request):
+    emprunts_actifs = Emprunt.objects.filter(retour__isnull=True).values_list('media_id', flat=True)
+    medias_disponibles = Media.objects.exclude(id__in=emprunts_actifs)
 
-    return render(request, 'mediatheque_app/emprunt_create.html', {'membres': membres, 'medias': medias})
+    membre_id = request.GET.get('membre_id')
+    emprunts = []
+    membre_recherche = False
 
-def rendre_emprunt(request, pk):
-    emprunt = get_object_or_404(Emprunt, pk=pk)
-    emprunt.rendu = True
-    emprunt.save()
-    media = emprunt.media
-    media.disponible = True
-    media.emprunteur = None
-    media.date_emprunt = None
-    media.save()
-    return redirect('media_list')
-from django.shortcuts import render
+    if membre_id:
+        membre_recherche = True
+        emprunts = Emprunt.objects.filter(membre_id=membre_id)
 
-# Create your views here.
+    context = {
+        'medias_disponibles': medias_disponibles,
+        'emprunts': emprunts,
+        'membre_recherche': membre_recherche
+    }
+    return render(request, 'mediatheque.app/client_home.html', context)
+
